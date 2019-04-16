@@ -35,6 +35,6 @@ def whatever(x):
                 tot*=int(string[i+j])
             if result < tot:
                 result=tot   
-    print(result)
+    return result
 
 print(whatever(13))
