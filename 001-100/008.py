@@ -5,15 +5,11 @@
 
 #There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 #Find the product abc.
-result=1000
-done=False
-while not done:
+def findPol(result):
     for i in range(1, round(result/3)):
-        for j in range(i+1, round(result/2)):
-            k=result-i-j
-            if i*i + j*j == k*k:
-                print(i*j*k)
-                done=True
-                break
-        if done==True:
-            break
+          for j in range(i+1, round(result/2)):
+              k=result-i-j
+              if i*i + j*j == k*k:
+                  return i*j*k
+                
+print(findPol(1000))
