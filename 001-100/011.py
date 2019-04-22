@@ -24,24 +24,22 @@
 #The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 #What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
 
-
-
 def lProduct(value, array, column, adj):
     #lr= left to right, ud= up-down from above to bellow,
     #ur= up-right diagonal to right, ul=up-left Diagonal to left
-    lr, ud, ur, ul = False, False, False, False
-    result=0
+    lr=ud=ur=ul=False
     line=int(value/column)
     
     #If is possible to get all values then True
     if line == int((value+adj)/column):
-        lr=True        
-    if line+adj == int((value+column*adj)/column) and line+adj < column:
-        ud=True                 
-    if line+adj == int((value+((column+1)*adj))/column) and line+adj < column:
-        ur=True            
-    if line+adj == int((value+((column-1)*adj))/column) and line+adj < column:
-        ul=True
+        lr=True
+    if line+adj < column:
+        if line+adj == int((value+column*adj)/column):
+            ud=True                 
+        if line+adj == int((value+((column+1)*adj))/column):
+            ur=True            
+        if line+adj == int((value+((column-1)*adj))/column):
+            ul=True
 
     #Gets first value and multiplies by the next values given
     tud=tur=tul=tlr=array[value]
@@ -49,15 +47,15 @@ def lProduct(value, array, column, adj):
         for i in range(1,adj+1):            
             if lr:
                 tlr*=array[value+i]
-            if ud:
-                tud*=array[value+column*i]
-            if ur:
-                tur*=array[value+((column+1)*i)]
-            if ul:
-                tul*=array[value+((column-1)*i)]
+            if line+adj < column:
+                if ud:
+                    tud*=array[value+column*i]
+                if ur:
+                    tur*=array[value+((column+1)*i)]
+                if ul:
+                    tul*=array[value+((column-1)*i)]
 
-    result=max(tlr, tud, tur, tul, result)
-    return result
+    return max(tlr, tud, tur, tul)
 #######################################################################
 string='''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -79,11 +77,12 @@ string='''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48'''
-#number of columns in the string
-column=20
 #number of adjacent numbers you need to multiply
 adj=3
 string=string.split()
+#number of columns in the string
+column=sqrt(len(string)
+print(len(string)/20)
 array=[]
 for i in string:
     array.append(int(i))
@@ -93,4 +92,3 @@ for i in range(column*column):
     if result < tot:
         result=tot
 print(result)
-
