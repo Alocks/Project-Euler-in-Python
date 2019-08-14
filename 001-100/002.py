@@ -3,16 +3,9 @@
 #By considering the terms in the Fibonacci sequence whose values do not exceed four million, 
 #find the sum of the even-valued terms.
 
-total = 2
-x = 1
-y = 2
-z = 0
+fibo=[1,2]
 
-while(z < 4000000):
-    z = x+y
-    x = y
-    y = z
-    if z % 2 == 0:
-        total += z
+while fibo[-1] + fibo[-2] < 4000000:
+    fibo.append(fibo[-1] + fibo[-2])
 
-print(total)
+print(sum(i for i in fibo if i%2==0))
